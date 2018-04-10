@@ -18,7 +18,7 @@ var PHOTO_DESCRIPTIONS = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
-var userDialog = document.querySelector('.???'); // что тут должно быть?
+var userDialog = document.querySelector('.big-picture'); // что тут должно быть?
 userDialog.classList.remove('hidden');
 
 var similarListElement = userDialog.querySelector('.pictures'); // Что тут должно быть?
