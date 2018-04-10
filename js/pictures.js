@@ -6,7 +6,16 @@ for (var k = 0; k < COUNT_PHOTOS; k++) {
   urls.push('photos/' + (k + 1) + '.jpg');
 }
 // ------------------
-var PHOTO_LIKES = [];
+
+// --------- создается массив лайков для картинок ---------
+var photoLikes = [];
+var MIN_LIKES = 15;
+var MAX_LIKES = 200;
+for (var like = 0; like < 25; like++) {
+  photoLikes.push(getRandomIndex(MIN_LIKES, MAX_LIKES));
+}
+// ------------------
+
 var PHOTO_COMMENTS = [
   'Всё отлично',
   'В целом всё неплохо. Но не всё.',
@@ -38,7 +47,7 @@ var getRandomIndex = function (min, max) { // функция генерации 
 for (var j = 0; j < 25; j++) {
   photos.push({
     url: urls[j], // правильно указал - проверить?
-    likes: PHOTO_LIKES[getRandomIndex(15, 200)],
+    likes: photoLikes[j], // правильно указал - проверить?
     comments: PHOTO_COMMENTS[getRandomIndex(0, PHOTO_COMMENTS.length - 1)],
     description: PHOTO_DESCRIPTIONS[getRandomIndex(0, PHOTO_DESCRIPTIONS.length - 1)]
   });
