@@ -1,6 +1,9 @@
 'use strict';
-
-var PHOTO_URLS = ['photos/{{i}}.jpg'];
+var COUNT_PHOTOS = 25;
+var urls = [];
+for (var k = 0; k < COUNT_PHOTOS; k++) { // создается массив ссылок для картинок
+  urls.push('photos/' + (k + 1) + '.jpg');
+}
 var PHOTO_LIKES = [];
 var PHOTO_COMMENTS = [
   'Всё отлично',
@@ -18,11 +21,11 @@ var PHOTO_DESCRIPTIONS = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
-var userDialog = document.querySelector('.big-picture'); // что тут должно быть?
-userDialog.classList.remove('hidden');
+var userDialog = document.querySelector('.big-picture'); // Правильный селектор указал?
+// userDialog.classList.remove('hidden');
 
-var similarListElement = userDialog.querySelector('.pictures'); // Что тут должно быть?
-var pictureTemplate = document.querySelector('#picture'); // Что тут должно быть?
+var similarListElement = userDialog.querySelector('.pictures'); // Правильный селектор указал?
+var pictureTemplate = document.querySelector('#picture').content; // Правильный айдишник указал?
 
 var photos = []; // Создается массив карточек количеством 25 шт из цикла
 
@@ -32,7 +35,7 @@ var getRandomIndex = function (min, max) {
 
 for (var j = 0; j < 25; j++) {
   photos.push({
-    url: PHOTO_URLS[0], // как сделать перебор?
+    url: urls[j], // правильно указал - проверить?
     likes: PHOTO_LIKES[getRandomIndex(15, 200)],
     comments: PHOTO_COMMENTS[getRandomIndex(0, PHOTO_COMMENTS.length - 1)],
     description: PHOTO_DESCRIPTIONS[getRandomIndex(0, PHOTO_DESCRIPTIONS.length - 1)]
