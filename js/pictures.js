@@ -28,8 +28,7 @@ var similarListElement = userDialog.querySelector('.pictures'); // Правил�
 var pictureTemplate = document.querySelector('#picture').content; // Правильный айдишник указал?
 
 var photos = []; // Создается массив карточек количеством 25 шт из цикла
-
-var getRandomIndex = function (min, max) {
+var getRandomIndex = function (min, max) { // функция генерации случайных данных
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
@@ -42,6 +41,8 @@ for (var j = 0; j < 25; j++) {
   });
 }
 var renderPhoto = function (photo) {
+  // функция создания DOM-элемента на основе JS-объекта
+  // функция заполнения блока DOM-элементами на основе массива JS-объектов
   var photoElement = pictureTemplate.cloneNode(true);
   photoElement.querySelector('.picture__img').src = photo.url;
   photoElement.querySelector('.picture__stat--likes').textContent = photo.likes;
