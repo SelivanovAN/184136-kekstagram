@@ -18,6 +18,11 @@ var PHOTO_DESCRIPTIONS = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
+var userDialog = document.querySelector('.???'); // что тут должно быть?
+userDialog.classList.remove('hidden');
+
+var similarListElement = userDialog.querySelector('.big-picture'); // Что тут должно быть?
+var similarPhotoTemplate = document.querySelector('#picture'); // Что тут должно быть?
 
 var photos = []; // Создается массив карточек количеством 25 шт из цикла
 
@@ -27,25 +32,23 @@ var getRandomIndex = function (min, max) {
 
 for (var j = 0; j < 25; j++) {
   photos.push({
-    url: PHOTO_URLS[0],
+    url: PHOTO_URLS[0], // как сделать перебор?
     likes: PHOTO_LIKES[getRandomIndex(15, 200)],
     comments: PHOTO_COMMENTS[getRandomIndex(0, PHOTO_COMMENTS.length - 1)],
     description: PHOTO_DESCRIPTIONS[getRandomIndex(0, PHOTO_DESCRIPTIONS.length - 1)]
   });
 }
-/*
-var renderWizard = function (wizard) {
-  var wizardElement = similarWizardTemplate.cloneNode(true);
-  wizardElement.querySelector('.setup-similar-label').textContent = wizard.name;
-  wizardElement.querySelector('.wizard-coat').style.fill = wizard.coatColor;
-  wizardElement.querySelector('.wizard-eyes').style.fill = wizard.eyesColor;
-  return wizardElement;
+var renderPhoto = function (photo) {
+  var photoElement = similarPhotoTemplate.cloneNode(true);
+  photoElement.querySelector('.setup-similar-label').textContent = photo.url;
+  photoElement.querySelector('.picture__stat--likes').textContent = photo.likes;
+  photoElement.querySelector('.picture__stat--comments').textContent = photo.comments;
+  return photoElement;
 };
-
 var fragment = document.createDocumentFragment();
-for (var i = 0; i < wizards.length; i++) {
-  fragment.appendChild(renderWizard(wizards[i]));
+for (var i = 0; i < photos.length; i++) {
+  fragment.appendChild(renderPhoto(photos[i]));
 }
+
 similarListElement.appendChild(fragment);
-userDialog.querySelector('.setup-similar').classList.remove('hidden');
-*/
+userDialog.querySelector('.big-picture').classList.remove('hidden'); // То тут должно быть?
