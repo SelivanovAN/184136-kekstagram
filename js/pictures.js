@@ -21,11 +21,11 @@ var PHOTO_DESCRIPTIONS = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
-var userDialog = document.querySelector('.big-picture'); // Правильный селектор указал?
-// userDialog.classList.remove('hidden');
+var bigPicture = document.querySelector('.big-picture'); // Правильный селектор указал?
+bigPicture.classList.remove('hidden');
 
-var similarListElement = userDialog.querySelector('.pictures'); // Правильный селектор указал?
-var pictureTemplate = document.querySelector('#picture').content; // Правильный айдишник указал?
+var gallery = document.querySelector('.pictures'); // Правильный селектор указал?
+var pictureTemplate = document.querySelector('#picture'); // Правильный айдишник указал?
 
 var photos = []; // Создается массив карточек количеством 25 шт из цикла
 var getRandomIndex = function (min, max) { // функция генерации случайных данных
@@ -54,5 +54,5 @@ for (var i = 0; i < photos.length; i++) {
   fragment.appendChild(renderPhoto(photos[i]));
 }
 
-similarListElement.appendChild(fragment);
-userDialog.querySelector('.big-picture').classList.remove('hidden'); // То тут должно быть?
+gallery.appendChild(fragment);
+document.querySelector('.big-picture').classList.remove('hidden'); // То тут должно быть?
