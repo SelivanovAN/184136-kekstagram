@@ -1,9 +1,11 @@
 'use strict';
 var COUNT_PHOTOS = 25;
 var urls = [];
-for (var k = 0; k < COUNT_PHOTOS; k++) { // создается массив ссылок для картинок
+// --------- создается массив ссылок для картинок ---------
+for (var k = 0; k < COUNT_PHOTOS; k++) {
   urls.push('photos/' + (k + 1) + '.jpg');
 }
+// ------------------
 var PHOTO_LIKES = [];
 var PHOTO_COMMENTS = [
   'Всё отлично',
@@ -27,7 +29,8 @@ bigPicture.classList.remove('hidden');
 var gallery = document.querySelector('.pictures'); // Правильный селектор указал?
 var pictureTemplate = document.querySelector('#picture'); // Правильный айдишник указал?
 
-var photos = []; // Создается массив карточек количеством 25 шт из цикла
+// --------- Генерируется массив карточек количеством 25 шт из цикла ---------
+var photos = [];
 var getRandomIndex = function (min, max) { // функция генерации случайных данных
   return Math.floor(Math.random() * (max - min)) + min;
 };
@@ -40,6 +43,9 @@ for (var j = 0; j < 25; j++) {
     description: PHOTO_DESCRIPTIONS[getRandomIndex(0, PHOTO_DESCRIPTIONS.length - 1)]
   });
 }
+// ------------------
+
+// --------- Заполняем данными сгенерированные карточки ---------
 var renderPhoto = function (photo) {
   // функция создания DOM-элемента на основе JS-объекта
   // функция заполнения блока DOM-элементами на основе массива JS-объектов
@@ -49,6 +55,8 @@ var renderPhoto = function (photo) {
   photoElement.querySelector('.picture__stat--comments').textContent = photo.comments;
   return photoElement;
 };
+// ------------------
+
 var fragment = document.createDocumentFragment();
 for (var i = 0; i < photos.length; i++) {
   fragment.appendChild(renderPhoto(photos[i]));
