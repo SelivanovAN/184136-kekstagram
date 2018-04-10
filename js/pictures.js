@@ -30,11 +30,10 @@ var getRandomIndex = function (min, max) {
 
 for (var j = 0; j < 25; j++) {
   photos.push({
-    url: PHOTO_URLS[photos/{{getRandomIndex(1, 25)}}.jpg],
+    url: PHOTO_URLS[0],
     likes: PHOTO_LIKES[getRandomIndex(15, 200)],
     comments: PHOTO_COMMENTS[getRandomIndex(0, PHOTO_COMMENTS.length - 1)],
     description: PHOTO_DESCRIPTIONS[getRandomIndex(0, PHOTO_DESCRIPTIONS.length - 1)]
-    url:
   });
 }
 
