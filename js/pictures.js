@@ -21,8 +21,8 @@ var PHOTO_DESCRIPTIONS = [
 var userDialog = document.querySelector('.???'); // что тут должно быть?
 userDialog.classList.remove('hidden');
 
-var similarListElement = userDialog.querySelector('.big-picture'); // Что тут должно быть?
-var similarPhotoTemplate = document.querySelector('#picture'); // Что тут должно быть?
+var similarListElement = userDialog.querySelector('.pictures'); // Что тут должно быть?
+var pictureTemplate = document.querySelector('#picture'); // Что тут должно быть?
 
 var photos = []; // Создается массив карточек количеством 25 шт из цикла
 
@@ -39,8 +39,8 @@ for (var j = 0; j < 25; j++) {
   });
 }
 var renderPhoto = function (photo) {
-  var photoElement = similarPhotoTemplate.cloneNode(true);
-  photoElement.querySelector('.setup-similar-label').textContent = photo.url;
+  var photoElement = pictureTemplate.cloneNode(true);
+  photoElement.querySelector('.picture__img').src = photo.url;
   photoElement.querySelector('.picture__stat--likes').textContent = photo.likes;
   photoElement.querySelector('.picture__stat--comments').textContent = photo.comments;
   return photoElement;
