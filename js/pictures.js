@@ -1,21 +1,7 @@
 'use strict';
 var COUNT_PHOTOS = 25;
-var urls = [];
-// --------- создается массив ссылок для картинок ---------
-for (var k = 0; k < COUNT_PHOTOS; k++) {
-  urls.push('photos/' + (k + 1) + '.jpg');
-}
-// ------------------
-
-// --------- создается массив лайков для картинок ---------
-var photoLikes = [];
 var MIN_LIKES = 15;
 var MAX_LIKES = 200;
-for (var like = 0; like < 25; like++) {
-  photoLikes.push(getRandomIndex(MIN_LIKES, MAX_LIKES));
-}
-// ------------------
-
 var PHOTO_COMMENTS = [
   'Всё отлично',
   'В целом всё неплохо. Но не всё.',
@@ -33,7 +19,7 @@ var PHOTO_DESCRIPTIONS = [
   'Вот это тачка!'
 ];
 var bigPicture = document.querySelector('.big-picture'); // Правильный селектор указал?
-bigPicture.classList.remove('hidden');
+// bigPicture.classList.remove('hidden');
 
 var gallery = document.querySelector('.pictures'); // Правильный селектор указал?
 var pictureTemplate = document.querySelector('#picture'); // Правильный айдишник указал?
@@ -44,10 +30,10 @@ var getRandomIndex = function (min, max) { // функция генерации 
   return Math.floor(Math.random() * (max - min)) + min;
 };
 
-for (var j = 0; j < 25; j++) {
+for (var j = 0; j < COUNT_PHOTOS; j++) {
   photos.push({
-    url: urls[j], // правильно указал - проверить?
-    likes: photoLikes[j], // правильно указал - проверить?
+    url: 'photos/' + (j + 1) + '.jpg', // правильно указал - проверить?
+    likes: getRandomIndex(MIN_LIKES, MAX_LIKES), // правильно указал - проверить?
     comments: PHOTO_COMMENTS[getRandomIndex(0, PHOTO_COMMENTS.length - 1)],
     description: PHOTO_DESCRIPTIONS[getRandomIndex(0, PHOTO_DESCRIPTIONS.length - 1)]
   });
