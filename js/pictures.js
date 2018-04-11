@@ -27,7 +27,9 @@ var getRandomNumber = function (min, max) { // функция генерации
 };
 // фукнция перемешивания массива
 function shuffle(array) {
-  var j, temp, i;
+  var j;
+  var temp;
+  var i;
   for (i = array.length - 1; i > 0; i--) {
     j = Math.floor(Math.random() * (i + 1));
     temp = array[i];
@@ -74,18 +76,17 @@ var renderBigPicture = function (photo) {
   var socialComments = bigPicture.querySelector('.social__comments');
   var socialComment = socialComments.querySelector('.social__comment').cloneNode(true);
   socialComments.innerHTML = '';
-  var fragment = document.createDocumentFragment();
+  var fragmentBigPicture = document.createDocumentFragment();
   for (var l = 0; l < photo.comments.length; l++) {
     var comment = socialComment.cloneNode(true);
     comment.querySelector('.social__picture').src = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
     comment.childNodes[comment.childNodes.length - 1].nodeValue = photo.comments[l];
-    fragment.appendChild(comment);
+    fragmentBigPicture.appendChild(comment);
   }
-  socialComments.appendChild(fragment);
+  socialComments.appendChild(fragmentBigPicture);
 };
 renderBigPicture(photos[0]);
 bigPicture.classList.remove('hidden');
-// document.querySelector('.big-picture').classList.remove('hidden'); // Это вообще надо?
 
 var socialCommentCount = document.querySelector('.social__comment-count');
 var socialCommentLoad = document.querySelector('.social__comment-loadmore');
