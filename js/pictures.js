@@ -78,7 +78,6 @@ var renderBigPicture = function (photo) {
   for (var l = 0; l < photo.comments.length; l++) {
     var comment = socialComment.cloneNode(true);
     comment.querySelector('.social__picture').src = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
-    // меняем текст комментария
     comment.childNodes[comment.childNodes.length - 1].nodeValue = photo.comments[l];
     fragment.appendChild(comment);
   }
