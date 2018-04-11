@@ -22,21 +22,28 @@ var PHOTO_DESCRIPTIONS = [
 
 var gallery = document.querySelector('.pictures');
 var pictureTemplate = document.querySelector('#picture').content;
-
-
-// --------- Генерируется массив карточек количеством 25 шт из цикла ---------
-var photos = [];
-var getRandomIndex = function (min, max) { // функция генерации случайных данных
+var getRandomNumber = function (min, max) { // функция генерации случайных данных
   return Math.floor(Math.random() * (max - min)) + min;
 };
-
+// фукнция перемешивания массива
+function shuffle(array) {
+  var j, temp, i;
+  for (i = array.length - 1; i > 0; i--) {
+    j = Math.floor(Math.random() * (i + 1));
+    temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+}
+// --------- Генерируется массив карточек количеством 25 шт из цикла ---------
+var photos = [];
 for (var j = 0; j < COUNT_PHOTOS; j++) {
   photos.push({
     url: 'photos/' + (j + 1) + '.jpg',
-    likes: getRandomIndex(MIN_LIKES, MAX_LIKES),
-    comments: shuffle(PHOTO_COMMENTS).slice(0, getrandomIndex(0, PHOTO_COMMENTS.length)),
-    // comments: PHOTO_COMMENTS[getRandomIndex(0, PHOTO_COMMENTS.length - 1)],
-    description: PHOTO_DESCRIPTIONS[getRandomIndex(0, PHOTO_DESCRIPTIONS.length - 1)]
+    likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
+    comments: shuffle(PHOTO_COMMENTS).slice(0, getRandomNumber(0, PHOTO_COMMENTS.length - 1)),
+    description: PHOTO_DESCRIPTIONS[getRandomNumber(0, PHOTO_DESCRIPTIONS.length - 1)]
   });
 }
 // ------------------
@@ -70,12 +77,18 @@ var renderBigPicture = function (photo) {
   var fragment = document.createDocumentFragment();
   for (var l = 0; l < photo.comments.length; l++) {
     var comment = socialComment.cloneNode(true);
-    comment.querySelector('.social__picture').src = 'img/avatar-' + getRandomIndex(1, 6) + '.svg';
-    comment.textContent = photo.comments[l];
+    comment.querySelector('.social__picture').src = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
+    // меняем текст комментария
+    comment.childNodes[comment.childNodes.length - 1].nodeValue = photo.comments[l];
     fragment.appendChild(comment);
   }
   socialComments.appendChild(fragment);
 };
 renderBigPicture(photos[0]);
 bigPicture.classList.remove('hidden');
-// document.querySelector('.big-picture').classList.remove('hidden'); // То тут должно быть?
+// document.querySelector('.big-picture').classList.remove('hidden'); // Это вообще надо?
+
+var socialCommentCount = document.querySelector('.social__comment-count');
+var socialCommentLoad = document.querySelector('.social__comment-loadmore');
+socialCommentCount.classList.add('visually-hidden');
+socialCommentLoad.classList.add('visually-hidden');
