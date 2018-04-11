@@ -18,11 +18,11 @@ var PHOTO_DESCRIPTIONS = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
-var bigPicture = document.querySelector('.big-picture'); // Правильный селектор указал?
-// bigPicture.classList.remove('hidden');
+
 
 var gallery = document.querySelector('.pictures'); // Правильный селектор указал?
-var pictureTemplate = document.querySelector('#picture'); // Правильный айдишник указал?
+var pictureTemplate = document.querySelector('#picture').content; // Правильный айдишник указал?
+
 
 // --------- Генерируется массив карточек количеством 25 шт из цикла ---------
 var photos = [];
@@ -47,7 +47,7 @@ var renderPhoto = function (photo) {
   var photoElement = pictureTemplate.cloneNode(true);
   photoElement.querySelector('.picture__img').src = photo.url;
   photoElement.querySelector('.picture__stat--likes').textContent = photo.likes;
-  photoElement.querySelector('.picture__stat--comments').textContent = photo.comments;
+  photoElement.querySelector('.picture__stat--comments').textContent = photo.comments.length;
   return photoElement;
 };
 // ------------------
@@ -58,4 +58,23 @@ for (var i = 0; i < photos.length; i++) {
 }
 
 gallery.appendChild(fragment);
-document.querySelector('.big-picture').classList.remove('hidden'); // То тут должно быть?
+var bigPicture = document.querySelector('.big-picture');
+var renderBigPicture = function (photo) {
+  bigPicture.querySelector('.big-picture__img img').src = photo.url;
+  bigPicture.querySelector('.likes-count').textContent = photo.likes;
+  bigPicture.querySelector('.comments-count').textContent = photo.comments.length;
+  var socialComments = bigPicture.querySelector('.social__comments');
+  var socialComment = socialComments.querySelector('.social__comment').cloneNode(true);
+  socialComments.innerHTML = '';
+  var fragment = document.createDocumentFragment();
+  for (var i = 0; i < photo.comments.length; i++) {
+    var comment = socialComment.cloneNode(true);
+    comment.querySelector('.social__picture').src = 'img/avatar-' + getRandomIndex(1, 6) + '.svg';
+    // comment.textContent = photo.comments[i];
+    fragment.appendChild(comment);
+  }
+  socialComments.appendChild(fragment);
+};
+renderBigPicture(photos[0]);
+bigPicture.classList.remove('hidden');
+// document.querySelector('.big-picture').classList.remove('hidden'); // То тут должно быть?
