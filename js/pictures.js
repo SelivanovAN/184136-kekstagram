@@ -18,14 +18,15 @@ var PHOTO_DESCRIPTIONS = [
   'Цените каждое мгновенье. Цените тех, кто рядом с вами и отгоняйте все сомненья. Не обижайте всех словами......',
   'Вот это тачка!'
 ];
-
-
 var gallery = document.querySelector('.pictures');
 var pictureTemplate = document.querySelector('#picture').content;
-var getRandomNumber = function (min, max) { // функция генерации случайных данных
+
+// --------- функция генерации случайных чисел---------
+var getRandomNumber = function (min, max) {
   return Math.floor(Math.random() * (max - min)) + min;
 };
-// фукнция перемешивания массива
+
+// --------- фукнция перемешивания массива ---------
 function shuffle(array) {
   var j;
   var temp;
@@ -38,7 +39,8 @@ function shuffle(array) {
   }
   return array;
 }
-// --------- Генерируется массив карточек количеством 25 шт из цикла ---------
+
+// --------- Генерируется массив фоток количеством 25 шт из цикла (функция генерации случайных данных) ---------
 var photos = [];
 for (var j = 0; j < COUNT_PHOTOS; j++) {
   photos.push({
@@ -48,9 +50,8 @@ for (var j = 0; j < COUNT_PHOTOS; j++) {
     description: PHOTO_DESCRIPTIONS[getRandomNumber(0, PHOTO_DESCRIPTIONS.length - 1)]
   });
 }
-// ------------------
 
-// --------- Заполняем данными сгенерированные карточки ---------
+// --------- Заполняем данными сгенерированные карточки (функция создания DOM-элемента на основе JS-объекта )---------
 var renderPhoto = function (photo) {
   // функция создания DOM-элемента на основе JS-объекта
   // функция заполнения блока DOM-элементами на основе массива JS-объектов
@@ -60,9 +61,9 @@ var renderPhoto = function (photo) {
   photoElement.querySelector('.picture__stat--comments').textContent = photo.comments.length;
   return photoElement;
 };
-// ------------------
 
 var fragment = document.createDocumentFragment();
+// --------- функция заполнения блока DOM-элементами на основе массива ---------
 for (var i = 0; i < photos.length; i++) {
   fragment.appendChild(renderPhoto(photos[i]));
 }
