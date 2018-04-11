@@ -20,8 +20,8 @@ var PHOTO_DESCRIPTIONS = [
 ];
 
 
-var gallery = document.querySelector('.pictures'); // Правильный селектор указал?
-var pictureTemplate = document.querySelector('#picture').content; // Правильный айдишник указал?
+var gallery = document.querySelector('.pictures');
+var pictureTemplate = document.querySelector('#picture').content;
 
 
 // --------- Генерируется массив карточек количеством 25 шт из цикла ---------
@@ -32,9 +32,10 @@ var getRandomIndex = function (min, max) { // функция генерации 
 
 for (var j = 0; j < COUNT_PHOTOS; j++) {
   photos.push({
-    url: 'photos/' + (j + 1) + '.jpg', // правильно указал - проверить?
-    likes: getRandomIndex(MIN_LIKES, MAX_LIKES), // правильно указал - проверить?
-    comments: PHOTO_COMMENTS[getRandomIndex(0, PHOTO_COMMENTS.length - 1)],
+    url: 'photos/' + (j + 1) + '.jpg',
+    likes: getRandomIndex(MIN_LIKES, MAX_LIKES),
+    comments: shuffle(PHOTO_COMMENTS).slice(0, getrandomIndex(0, PHOTO_COMMENTS.length)),
+    // comments: PHOTO_COMMENTS[getRandomIndex(0, PHOTO_COMMENTS.length - 1)],
     description: PHOTO_DESCRIPTIONS[getRandomIndex(0, PHOTO_DESCRIPTIONS.length - 1)]
   });
 }
@@ -67,10 +68,10 @@ var renderBigPicture = function (photo) {
   var socialComment = socialComments.querySelector('.social__comment').cloneNode(true);
   socialComments.innerHTML = '';
   var fragment = document.createDocumentFragment();
-  for (var i = 0; i < photo.comments.length; i++) {
+  for (var l = 0; l < photo.comments.length; l++) {
     var comment = socialComment.cloneNode(true);
     comment.querySelector('.social__picture').src = 'img/avatar-' + getRandomIndex(1, 6) + '.svg';
-    // comment.textContent = photo.comments[i];
+    comment.textContent = photo.comments[l];
     fragment.appendChild(comment);
   }
   socialComments.appendChild(fragment);
