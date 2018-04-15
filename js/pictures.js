@@ -119,8 +119,8 @@ var imagePreview = uploadForm.querySelector('.img-upload__preview > img');
 
 // --------- Открываем форму для редактирования ---------
 uploadFile.addEventListener('change', function (evt) {
-  evt.preventDefault(); //  - это что?
-  evt.stopPropagation(); //  - это что?
+  // evt.preventDefault(); //  - это что?
+  // evt.stopPropagation(); //  - это что?
   uploadOverlay.classList.remove('hidden');
 });
 
