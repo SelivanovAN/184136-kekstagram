@@ -54,10 +54,11 @@ for (var j = 0; j < COUNT_PHOTOS; j++) {
 }
 
 // --------- Заполняем данными сгенерированные карточки (функция создания DOM-элемента на основе JS-объекта )---------
-var renderPhoto = function (photo) {
+var renderPhoto = function (photo, index) {
   // функция создания DOM-элемента на основе JS-объекта
   // функция заполнения блока DOM-элементами на основе массива JS-объектов
   var photoElement = pictureTemplate.cloneNode(true);
+  photoElement.querySelector('.picture__link').setAttribute('data-id', index);
   photoElement.querySelector('.picture__img').src = photo.url;
   photoElement.querySelector('.picture__stat--likes').textContent = photo.likes;
   photoElement.querySelector('.picture__stat--comments').textContent = photo.comments.length;
@@ -67,7 +68,7 @@ var renderPhoto = function (photo) {
 var fragment = document.createDocumentFragment();
 // --------- функция заполнения блока DOM-элементами на основе массива ---------
 for (var i = 0; i < photos.length; i++) {
-  fragment.appendChild(renderPhoto(photos[i]));
+  fragment.appendChild(renderPhoto(photos[i], i));
 }
 
 gallery.appendChild(fragment);
@@ -90,8 +91,8 @@ var renderBigPicture = function (photo) {
   }
   socialComments.appendChild(fragmentBigPicture);
 };
-renderBigPicture(photos[0]);
-bigPicture.classList.remove('hidden');
+// renderBigPicture(photos[0]);
+// bigPicture.classList.remove('hidden');
 
 var socialCommentCount = document.querySelector('.social__comment-count');
 var socialCommentLoad = document.querySelector('.social__comment-loadmore');
@@ -109,13 +110,12 @@ var uploadClose = uploadForm.querySelector('#upload-cancel');
 var buttonMinus = uploadForm.querySelector('.resize__control--minus');
 var buttonPlus = uploadForm.querySelector('.resize__control--plus');
 var scaleValue = uploadForm.querySelector('.resize__control--value').value;
-var scaleValueNumber = parseInt(scaleValue, 10); //  - это что?
+var scaleValueNumber = parseInt(scaleValue, 10);
 var imageUpload = uploadForm.querySelector('.img-upload__preview');
 var MIN_SCALE = 25;
 var MAX_SCALE = 100;
 var STEP_SCALE = 25;
 var imagePreview = uploadForm.querySelector('.img-upload__preview > img');
-var bigPictureImage = document.querySelector('.big-picture__img');
 
 // --------- Открываем форму для редактирования ---------
 uploadFile.addEventListener('change', function (evt) {
@@ -169,28 +169,19 @@ uploadForm.addEventListener('change', function (evt) {
 });
 
 // ----------- Показываем фотографии в полноэкранном формате ----------
-var listComments = document.querySelector('.social__comments');
-var itemComment = listComments.querySelectorAll('.social__comment');
-
-var insertComment = function (data, num) {
-  for (var l = 0; l < itemComment.length; l++) {
-    itemComment[l].childNodes[2].textContent = data[num].comment[l];
-    itemComment[l].childNodes[1].src = 'img/avatar-' + getRandomNumber(MIN_NUMBER_COMMENTS, MAX_NUMBER_COMMENTS) + '.svg';
-  }
-  if (data[num].comment.length < 2) {
-    listComments.removeChild(itemComment[1]);
-  }
-};
-
-var showBigPic = function (data) {
+var showBigPic = function () {
   gallery.addEventListener('click', function (evt) {
     // evt.preventDefault();
-    var url = evt.target.src.match(/photos\/\w+/) + '.jpg';
-    bigPicture.classList.remove('hidden');
-    bigPictureImage.querySelector('img').src = url;
-    var urlNumber = (url.match(/[0-9]+/));
-    var num = parseInt(urlNumber, 10);
-    insertComment(data, num);
+    var target = evt.target;
+    while (!target.classList.contains('pictures')) {
+      if (target.classList.contains('picture__link')) {
+        var idPhoto = parseInt(target.dataset.id, 10);
+        renderBigPicture(photos[idPhoto]);
+        bigPicture.classList.remove('hidden');
+        return;
+      }
+      target = target.parentNode;
+    }
   });
 };
 
