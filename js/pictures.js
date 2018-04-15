@@ -2,6 +2,8 @@
 var COUNT_PHOTOS = 25;
 var MIN_LIKES = 15;
 var MAX_LIKES = 200;
+var MIN_NUMBER_COMMENTS = 1;
+var MAX_NUMBER_COMMENTS = 6;
 var PHOTO_COMMENTS = [
   'Всё отлично',
   'В целом всё неплохо. Но не всё.',
@@ -82,7 +84,7 @@ var renderBigPicture = function (photo) {
   var fragmentBigPicture = document.createDocumentFragment();
   for (var l = 0; l < photo.comments.length; l++) {
     var comment = socialComment.cloneNode(true);
-    comment.querySelector('.social__picture').src = 'img/avatar-' + getRandomNumber(1, 6) + '.svg';
+    comment.querySelector('.social__picture').src = 'img/avatar-' + getRandomNumber(MIN_NUMBER_COMMENTS, MAX_NUMBER_COMMENTS) + '.svg';
     comment.childNodes[comment.childNodes.length - 1].nodeValue = photo.comments[l];
     fragmentBigPicture.appendChild(comment);
   }
@@ -100,8 +102,6 @@ socialCommentLoad.classList.add('visually-hidden');
 // --------- Module4-task1 ---------
 var ESC_KEYCODE = 27;
 var ENTER_KEYCODE = 13;
-var MIN_AVATAR = 1;
-var MAX_AVATAR = 6;
 var uploadForm = document.querySelector('.img-upload__form');
 var uploadFile = uploadForm.querySelector('.img-upload__input');
 var uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
@@ -109,7 +109,7 @@ var uploadClose = uploadForm.querySelector('#upload-cancel');
 var buttonMinus = uploadForm.querySelector('.resize__control--minus');
 var buttonPlus = uploadForm.querySelector('.resize__control--plus');
 var scaleValue = uploadForm.querySelector('.resize__control--value').value;
-var scaleValueNumber = parseInt(scaleValue, 10);
+var scaleValueNumber = parseInt(scaleValue, 10); //  - это что?
 var imageUpload = uploadForm.querySelector('.img-upload__preview');
 var MIN_SCALE = 25;
 var MAX_SCALE = 100;
@@ -119,8 +119,8 @@ var bigPictureImage = document.querySelector('.big-picture__img');
 
 // --------- Открываем форму для редактирования ---------
 uploadFile.addEventListener('change', function (evt) {
-  evt.preventDefault();
-  evt.stopPropagation();
+  evt.preventDefault(); //  - это что?
+  evt.stopPropagation(); //  - это что?
   uploadOverlay.classList.remove('hidden');
 });
 
@@ -175,7 +175,7 @@ var itemComment = listComments.querySelectorAll('.social__comment');
 var insertComment = function (data, num) {
   for (var l = 0; l < itemComment.length; l++) {
     itemComment[l].childNodes[2].textContent = data[num].comment[l];
-    itemComment[l].childNodes[1].src = 'img/avatar-' + getRandomNumber(MIN_AVATAR, MAX_AVATAR) + '.svg';
+    itemComment[l].childNodes[1].src = 'img/avatar-' + getRandomNumber(MIN_NUMBER_COMMENTS, MAX_NUMBER_COMMENTS) + '.svg';
   }
   if (data[num].comment.length < 2) {
     listComments.removeChild(itemComment[1]);
