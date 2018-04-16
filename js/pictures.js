@@ -208,28 +208,28 @@ var HASHTAG_CODE = 'U+0023';
 
 var hashtagsContainer = document.querySelector('.text__hashtags');
 
-// hashtagsContainer.addEventListener('input', function () {
-//   var textHashtags = hashtagsContainer.value;
-//   var hashtags = textHashtags.split(' ' + HASHTAG_CODE);
-//   var sameValue = searchForSameValues(hashtags);
-//   if (sameValue) {
-//     hashtagsContainer.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
-//   }
-//   if (hashtags.length > 5) {
-//     hashtagsContainer.setCustomValidity('Нельзя указать больше пяти хэш-тегов');
-//   }
-//   for (i = 0; i < hashtags.length; i++) {
-//     if (hashtags[i][0] !== HASHTAG_CODE) {
-//       hashtagsContainer.setCustomValidity('Хэш-тег начинается с символа #');
-//     }
-//     if (hashtags[i] === HASHTAG_CODE) {
-//       hashtagsContainer.setCustomValidity('Хеш-тег не может состоять только из одной решётки');
-//     }
-//     if (hashtags[i].length > 21) {
-//       hashtagsContainer.setCustomValidity('Максимальная длина одного хэш-тега 20 символов');
-//     }
-//   }
-// });
+hashtagsContainer.addEventListener('input', function () {
+  var textHashtags = hashtagsContainer.value;
+  var hashtags = textHashtags.split(' ' + HASHTAG_CODE);
+  var sameValue = searchForSameValues(hashtags);
+  if (sameValue) {
+    hashtagsContainer.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
+  }
+  if (hashtags.length > 5) {
+    hashtagsContainer.setCustomValidity('Нельзя указать больше пяти хэш-тегов');
+  }
+  for (i = 0; i < hashtags.length; i++) {
+    if (hashtags[i][0] !== HASHTAG_CODE) {
+      hashtagsContainer.setCustomValidity('Хэш-тег начинается с символа #');
+    }
+    if (hashtags[i] === HASHTAG_CODE) {
+      hashtagsContainer.setCustomValidity('Хеш-тег не может состоять только из одной решётки');
+    }
+    if (hashtags[i].length > 21) {
+      hashtagsContainer.setCustomValidity('Максимальная длина одного хэш-тега 20 символов');
+    }
+  }
+});
 
 var commentTextareaElement = uploadForm.querySelector('.text__description');
 var submitPictureElement = uploadForm.querySelector('.img-upload__submit');
