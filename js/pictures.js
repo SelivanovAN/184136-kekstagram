@@ -102,7 +102,6 @@ socialCommentLoad.classList.add('visually-hidden');
 
 // --------- Module4-task1 ---------
 var ESC_KEYCODE = 27;
-var ENTER_KEYCODE = 13;
 var uploadForm = document.querySelector('.img-upload__form');
 var uploadFile = uploadForm.querySelector('.img-upload__input');
 var uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
@@ -119,16 +118,13 @@ var imagePreview = uploadForm.querySelector('.img-upload__preview > img');
 
 // --------- Открываем форму для редактирования ---------
 uploadFile.addEventListener('change', function (evt) {
-  // evt.preventDefault(); //  - это что?
-  // evt.stopPropagation(); //  - это что?
+  evt.stopPropagation(); //  отменяет всплыв события
   uploadOverlay.classList.remove('hidden');
 });
 
 // ----------- Закрываем форму редактирования ----------
 var closeForm = function () {
-  if (!uploadOverlay.classList.contains('hidden')) { // contains - это что?
-    uploadOverlay.classList.add('hidden');
-  }
+  uploadOverlay.classList.add('hidden');
 };
 
 uploadClose.addEventListener('click', function () {
@@ -150,8 +146,7 @@ buttonMinus.addEventListener('click', function (evt) {
   }
 });
 
-buttonPlus.addEventListener('click', function (evt) {
-  evt.preventDefault();
+buttonPlus.addEventListener('click', function () {
   if (scaleValueNumber >= MIN_SCALE && scaleValueNumber < MAX_SCALE) {
     scaleValueNumber = scaleValueNumber + STEP_SCALE;
     uploadForm.querySelector('.resize__control--value').value = scaleValueNumber.toString();
@@ -161,7 +156,6 @@ buttonPlus.addEventListener('click', function (evt) {
 
 // ----------- Применяем эффекты ----------
 uploadForm.addEventListener('change', function (evt) {
-  evt.preventDefault();
   var target = evt.target.closest('.img-upload__effects');
   if (target) {
     imagePreview.className = 'effects__preview--' + evt.target.value;
@@ -169,23 +163,18 @@ uploadForm.addEventListener('change', function (evt) {
 });
 
 // ----------- Показываем фотографии в полноэкранном формате ----------
-var showBigPic = function () {
-  gallery.addEventListener('click', function (evt) {
-    // evt.preventDefault();
-    var target = evt.target;
-    while (!target.classList.contains('pictures')) {
-      if (target.classList.contains('picture__link')) {
-        var idPhoto = parseInt(target.dataset.id, 10);
-        renderBigPicture(photos[idPhoto]);
-        bigPicture.classList.remove('hidden');
-        return;
-      }
-      target = target.parentNode;
+gallery.addEventListener('click', function (evt) {
+  var target = evt.target;
+  while (!target.classList.contains('pictures')) {
+    if (target.classList.contains('picture__link')) {
+      var idPhoto = parseInt(target.dataset.id, 10);
+      renderBigPicture(photos[idPhoto]);
+      bigPicture.classList.remove('hidden');
+      return;
     }
-  });
-};
-
-showBigPic(photos);
+    target = target.parentNode;
+  }
+});
 
 // ----------- Закрываем окно bigPicture ----------
 var btnCloseBigPicture = bigPicture.querySelector('.big-picture__cancel');
@@ -194,19 +183,10 @@ var closeBigPicture = function () {
   bigPicture.classList.add('hidden');
 };
 
-btnCloseBigPicture.addEventListener('click', function () {
-  closeBigPicture();
-});
+btnCloseBigPicture.addEventListener('click', closeBigPicture);
 
 window.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
-    closeBigPicture();
-  }
-});
-
-window.addEventListener('keydown', function (evt) {
-  var focused = document.activeElement;
-  if (evt.keyCode === ENTER_KEYCODE && focused === btnCloseBigPicture) {
     closeBigPicture();
   }
 });
