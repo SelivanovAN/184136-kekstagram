@@ -4,6 +4,10 @@ var MIN_LIKES = 15;
 var MAX_LIKES = 200;
 var MIN_NUMBER_COMMENTS = 1;
 var MAX_NUMBER_COMMENTS = 6;
+var ESC_KEYCODE = 27;
+var MIN_SCALE = 25;
+var MAX_SCALE = 100;
+var STEP_SCALE = 25;
 var PHOTO_COMMENTS = [
   'Всё отлично',
   'В целом всё неплохо. Но не всё.',
@@ -44,6 +48,7 @@ function shuffle(array) {
 
 // --------- Генерируется массив фоток количеством 25 шт из цикла (функция генерации случайных данных) ---------
 var photos = [];
+
 for (var j = 0; j < COUNT_PHOTOS; j++) {
   photos.push({
     url: 'photos/' + (j + 1) + '.jpg',
@@ -101,7 +106,6 @@ socialCommentCount.classList.add('visually-hidden');
 socialCommentLoad.classList.add('visually-hidden');
 
 // --------- Module4-task1 ---------
-var ESC_KEYCODE = 27;
 var uploadForm = document.querySelector('.img-upload__form');
 var uploadFile = uploadForm.querySelector('.img-upload__input');
 var uploadOverlay = uploadForm.querySelector('.img-upload__overlay');
@@ -111,9 +115,6 @@ var buttonPlus = uploadForm.querySelector('.resize__control--plus');
 var scaleValue = uploadForm.querySelector('.resize__control--value').value;
 var scaleValueNumber = parseInt(scaleValue, 10);
 var imageUpload = uploadForm.querySelector('.img-upload__preview');
-var MIN_SCALE = 25;
-var MAX_SCALE = 100;
-var STEP_SCALE = 25;
 var imagePreview = uploadForm.querySelector('.img-upload__preview > img');
 
 // --------- Открываем форму для редактирования ---------
