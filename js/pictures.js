@@ -191,12 +191,12 @@ window.addEventListener('keydown', function (evt) {
   }
 });
 
+// ----------- module4-task2----------
 function searchForSameValues(arr) {
-  var result = [];
   for (i = 0; i < arr.length; i++) {
     var arrValue = arr[i];
-    for (var l = 0; l < result.length; l++) {
-      if (result[l] === arrValue) {
+    for (var l = 0; l < arr.length; l++) {
+      if (arr[l] === arrValue && l !== i) {
         return true;
       }
     }
@@ -204,13 +204,14 @@ function searchForSameValues(arr) {
   return false;
 }
 
-var HASHTAG_CODE = 'U+0023';
+var HASHTAG_CODE = '#';
 
 var hashtagsContainer = document.querySelector('.text__hashtags');
 
 hashtagsContainer.addEventListener('input', function () {
+  hashtagsContainer.setCustomValidity('');
   var textHashtags = hashtagsContainer.value;
-  var hashtags = textHashtags.split(' ' + HASHTAG_CODE);
+  var hashtags = textHashtags.split(' ');
   var sameValue = searchForSameValues(hashtags);
   if (sameValue) {
     hashtagsContainer.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
