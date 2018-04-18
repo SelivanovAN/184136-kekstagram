@@ -268,5 +268,5 @@ descriptionForm.addEventListener('keydown', function (evt) {
 });
 
 // Если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение
-var messageError = document.querySelector('.img-upload__message--error');
+// var messageError = document.querySelector('.img-upload__message--error');
 // messageError.classList.remove('hidden');
