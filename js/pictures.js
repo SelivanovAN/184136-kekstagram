@@ -135,6 +135,23 @@ document.addEventListener('keydown', function (evt) {
   if (evt.keyCode === ESC_KEYCODE) {
     closeForm();
   }
+  //
+  // var setInputLiseners = function () {
+  //   textAreaUpload.addEventListener('focus', onInputFocus);
+  //   inputTagUpload.addEventListener('focus', onInputFocus);
+  //   inputTagUpload.addEventListener('blur', onInputTagValidation);
+  //   textAreaUpload.addEventListener('blur', onInputFocusLost);
+  //   inputTagUpload.addEventListener('blur', onInputFocusLost);
+  // };
+  //
+  // var killInputLiseners = function () {
+  //   textAreaUpload.removeEventListener('focus', onInputFocus);
+  //   inputTagUpload.removeEventListener('focus', onInputFocus);
+  //   inputTagUpload.removeEventListener('blur', onInputTagValidation);
+  //   textAreaUpload.removeEventListener('blur', onInputFocusLost);
+  //   inputTagUpload.removeEventListener('blur', onInputFocusLost);
+  // };
+  //
 });
 // ----------- Маштабирование ----------
 buttonMinus.addEventListener('click', function (evt) {
@@ -215,34 +232,41 @@ hashtagsContainer.addEventListener('input', function () {
   var sameValue = searchForSameValues(hashtags);
   if (sameValue) {
     hashtagsContainer.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
+    // hashtagsContainer.style.border = '2px solid red';
   }
   if (hashtags.length > 5) {
     hashtagsContainer.setCustomValidity('Нельзя указать больше пяти хэш-тегов');
+    // hashtagsContainer.style.border = '2px solid red';
   }
   for (i = 0; i < hashtags.length; i++) {
     if (hashtags[i][0] !== HASHTAG_CODE) {
       hashtagsContainer.setCustomValidity('Хэш-тег начинается с символа #');
+      // hashtagsContainer.style.border = '2px solid red';
     }
     if (hashtags[i] === HASHTAG_CODE) {
       hashtagsContainer.setCustomValidity('Хеш-тег не может состоять только из одной решётки');
+      // hashtagsContainer.style.border = '2px solid red';
     }
     if (hashtags[i].length > 21) {
       hashtagsContainer.setCustomValidity('Максимальная длина одного хэш-тега 20 символов');
+      // hashtagsContainer.style.border = '2px solid red';
     }
   }
 });
 
-var commentTextareaElement = uploadForm.querySelector('.text__description');
-var submitPictureElement = uploadForm.querySelector('.img-upload__submit');
+// else {
+//   hashtagsContainer.setCustomValidity('');
+// }
 
-commentTextareaElement.addEventListener('focus', function () {
-  document.removeEventListener('keydown', closeBigPicture);
+var descriptionForm = document.querySelector('.img-upload__text');
+
+// *если фокус находится в поле ввода хэш-тега или комментарий, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
+descriptionForm.addEventListener('keydown', function (evt) {
+  if (evt.keyCode === ESC_KEYCODE) {
+    evt.stopPropagation();
+  }
 });
 
-commentTextareaElement.addEventListener('focusout', function () {
-  document.addEventListener('keydown', closeBigPicture);
-});
-
-submitPictureElement.addEventListener('click', function () {
-  hashtagsContainer();
-});
+// Если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение
+var messageError = document.querySelector('.img-upload__message--error');
+// messageError.classList.remove('hidden');
