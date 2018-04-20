@@ -131,27 +131,15 @@ uploadClose.addEventListener('click', function () {
   closeForm();
 });
 
+var hashtagsContainer = document.querySelector('.text__hashtags');
+var textDescription = document.querySelector('.text__description');
+
+// *если фокус находится в поле ввода хэш-тега или комментарий, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
+
 document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && document.activeElement !== hashtagsContainer && document.activeElement !== textDescription) {
     closeForm();
   }
-  //
-  // var setInputLiseners = function () {
-  //   textAreaUpload.addEventListener('focus', onInputFocus);
-  //   inputTagUpload.addEventListener('focus', onInputFocus);
-  //   inputTagUpload.addEventListener('blur', onInputTagValidation);
-  //   textAreaUpload.addEventListener('blur', onInputFocusLost);
-  //   inputTagUpload.addEventListener('blur', onInputFocusLost);
-  // };
-  //
-  // var killInputLiseners = function () {
-  //   textAreaUpload.removeEventListener('focus', onInputFocus);
-  //   inputTagUpload.removeEventListener('focus', onInputFocus);
-  //   inputTagUpload.removeEventListener('blur', onInputTagValidation);
-  //   textAreaUpload.removeEventListener('blur', onInputFocusLost);
-  //   inputTagUpload.removeEventListener('blur', onInputFocusLost);
-  // };
-  //
 });
 // ----------- Маштабирование ----------
 buttonMinus.addEventListener('click', function (evt) {
@@ -223,8 +211,6 @@ function searchForSameValues(arr) {
 
 var HASHTAG_CODE = '#';
 
-var hashtagsContainer = document.querySelector('.text__hashtags');
-
 hashtagsContainer.addEventListener('input', function () {
   hashtagsContainer.setCustomValidity('');
   var textHashtags = hashtagsContainer.value;
@@ -236,36 +222,51 @@ hashtagsContainer.addEventListener('input', function () {
   }
   if (hashtags.length > 5) {
     hashtagsContainer.setCustomValidity('Нельзя указать больше пяти хэш-тегов');
-    // hashtagsContainer.style.border = '2px solid red';
   }
   for (i = 0; i < hashtags.length; i++) {
     if (hashtags[i][0] !== HASHTAG_CODE) {
       hashtagsContainer.setCustomValidity('Хэш-тег начинается с символа #');
-      // hashtagsContainer.style.border = '2px solid red';
     }
     if (hashtags[i] === HASHTAG_CODE) {
       hashtagsContainer.setCustomValidity('Хеш-тег не может состоять только из одной решётки');
-      // hashtagsContainer.style.border = '2px solid red';
     }
     if (hashtags[i].length > 21) {
       hashtagsContainer.setCustomValidity('Максимальная длина одного хэш-тега 20 символов');
-      // hashtagsContainer.style.border = '2px solid red';
     }
   }
 });
 
-// else {
-//   hashtagsContainer.setCustomValidity('');
-// }
+// var imgUploadForm = document.querySelector('.img-upload__form');
+// Добавляем обработчик клика на кнопку отправки формы
+// hashtagsContainer.addEventListener('change', function () {
+//   // Пройдёмся по всем полям
+//   if (hashtagsContainer.) {
+//     hashtagsContainer.style.border = '2px solid red';
+//   }
+  // for (var i = 0; i < inputs.length; i++) {
+  //
+  //   var input = inputs[i];
+  //
+  //   // Проверим валидность поля, используя встроенную в JavaScript функцию checkValidity()
+  //   if (input.checkValidity() == false) {
+  //
+  //     var inputCustomValidation = new CustomValidation(); // Создадим объект CustomValidation
+  //     inputCustomValidation.checkValidity(input); // Выявим ошибки
+  //     var customValidityMessage = inputCustomValidation.getInvalidities(); // Получим все сообщения об ошибках
+  //     input.setCustomValidity(customValidityMessage); // Установим специальное сообщение об ошибке
+  //
+  //     // Добавим ошибки в документ
+  //     var customValidityMessageForHTML = inputCustomValidation.getInvaliditiesForHTML();
+  //     input.insertAdjacentHTML('afterend', '<p class="error-message">' + customValidityMessageForHTML + '</p>')
+  //     stopSubmit = true;
+  //
+  //   } // закончился if
+  // } // закончился цикл
 
-var descriptionForm = document.querySelector('.img-upload__text');
-
-// *если фокус находится в поле ввода хэш-тега или комментарий, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
-descriptionForm.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
-    evt.stopPropagation();
-  }
-});
+  // if (stopSubmit) {
+  //   e.preventDefault();
+  // }
+// });
 
 // Если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение
 // var messageError = document.querySelector('.img-upload__message--error');
