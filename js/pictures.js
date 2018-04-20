@@ -236,38 +236,6 @@ hashtagsContainer.addEventListener('input', function () {
   }
 });
 
-// var imgUploadForm = document.querySelector('.img-upload__form');
-// Добавляем обработчик клика на кнопку отправки формы
-// hashtagsContainer.addEventListener('change', function () {
-//   // Пройдёмся по всем полям
-//   if (hashtagsContainer.) {
-//     hashtagsContainer.style.border = '2px solid red';
-//   }
-  // for (var i = 0; i < inputs.length; i++) {
-  //
-  //   var input = inputs[i];
-  //
-  //   // Проверим валидность поля, используя встроенную в JavaScript функцию checkValidity()
-  //   if (input.checkValidity() == false) {
-  //
-  //     var inputCustomValidation = new CustomValidation(); // Создадим объект CustomValidation
-  //     inputCustomValidation.checkValidity(input); // Выявим ошибки
-  //     var customValidityMessage = inputCustomValidation.getInvalidities(); // Получим все сообщения об ошибках
-  //     input.setCustomValidity(customValidityMessage); // Установим специальное сообщение об ошибке
-  //
-  //     // Добавим ошибки в документ
-  //     var customValidityMessageForHTML = inputCustomValidation.getInvaliditiesForHTML();
-  //     input.insertAdjacentHTML('afterend', '<p class="error-message">' + customValidityMessageForHTML + '</p>')
-  //     stopSubmit = true;
-  //
-  //   } // закончился if
-  // } // закончился цикл
-
-  // if (stopSubmit) {
-  //   e.preventDefault();
-  // }
-// });
-
 // Если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение
 // var messageError = document.querySelector('.img-upload__message--error');
 // messageError.classList.remove('hidden');
