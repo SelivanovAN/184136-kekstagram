@@ -131,8 +131,13 @@ uploadClose.addEventListener('click', function () {
   closeForm();
 });
 
+var hashtagsContainer = document.querySelector('.text__hashtags');
+var textDescription = document.querySelector('.text__description');
+
+// *если фокус находится в поле ввода хэш-тега или комментарий, нажатие на Esc не должно приводить к закрытию формы редактирования изображения
+
 document.addEventListener('keydown', function (evt) {
-  if (evt.keyCode === ESC_KEYCODE) {
+  if (evt.keyCode === ESC_KEYCODE && document.activeElement !== hashtagsContainer && document.activeElement !== textDescription) {
     closeForm();
   }
 });
@@ -190,3 +195,47 @@ window.addEventListener('keydown', function (evt) {
     closeBigPicture();
   }
 });
+
+// ----------- module4-task2----------
+function searchForSameValues(arr) {
+  for (i = 0; i < arr.length; i++) {
+    var arrValue = arr[i];
+    for (var l = 0; l < arr.length; l++) {
+      if (arr[l] === arrValue && l !== i) {
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+var HASHTAG_CODE = '#';
+
+hashtagsContainer.addEventListener('input', function () {
+  hashtagsContainer.setCustomValidity('');
+  var textHashtags = hashtagsContainer.value;
+  var hashtags = textHashtags.split(' ');
+  var sameValue = searchForSameValues(hashtags);
+  if (sameValue) {
+    hashtagsContainer.setCustomValidity('Один и тот же хэш-тег не может быть использован дважды');
+    // hashtagsContainer.style.border = '2px solid red';
+  }
+  if (hashtags.length > 5) {
+    hashtagsContainer.setCustomValidity('Нельзя указать больше пяти хэш-тегов');
+  }
+  for (i = 0; i < hashtags.length; i++) {
+    if (hashtags[i][0] !== HASHTAG_CODE) {
+      hashtagsContainer.setCustomValidity('Хэш-тег начинается с символа #');
+    }
+    if (hashtags[i] === HASHTAG_CODE) {
+      hashtagsContainer.setCustomValidity('Хеш-тег не может состоять только из одной решётки');
+    }
+    if (hashtags[i].length > 21) {
+      hashtagsContainer.setCustomValidity('Максимальная длина одного хэш-тега 20 символов');
+    }
+  }
+});
+
+// Если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение
+// var messageError = document.querySelector('.img-upload__message--error');
+// messageError.classList.remove('hidden');
