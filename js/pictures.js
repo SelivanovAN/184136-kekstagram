@@ -239,3 +239,69 @@ hashtagsContainer.addEventListener('input', function () {
 // Если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение
 // var messageError = document.querySelector('.img-upload__message--error');
 // messageError.classList.remove('hidden');
+
+
+// module5-task1
+
+var SLIDER_WIDTH = 495;
+var SCALE_MAX = 100;
+// var imgUploadScale = document.querySelector('img-upload__scale');
+var scalePin = document.querySelector('.scale__pin');
+
+scalePin.addEventListener('mousedown', function (evt) {
+  evt.preventDefault();
+
+  var startCoords = {
+    x: evt.clientX,
+    y: evt.clientY
+  };
+  var onMouseMove = function (moveEvt) {
+    moveEvt.preventDefault();
+
+    var shift = {
+      x: startCoords.x - moveEvt.clientX,
+      y: startCoords.y - moveEvt.clientY
+    };
+
+    startCoords = {
+      x: moveEvt.clientX,
+      y: moveEvt.clientY
+    };
+
+    scalePin.style.top = (scalePin.offsetTop - shift.y) + 'px';
+    scalePin.style.left = (scalePin.offsetLeft - shift.x) + 'px';
+  };
+
+  var onMouseUp = function (upEvt) {
+    upEvt.preventDefault();
+
+    document.removeEventListener('mousemove', onMouseMove);
+    document.removeEventListener('mouseup', onMouseUp);
+  };
+
+  document.addEventListener('mousemove', onMouseMove);
+  document.addEventListener('mouseup', onMouseUp);
+});
+
+var imgUploadScale = document.querySelector('.img-upload__scale');
+var draggedItem = null;
+
+// откуда тянем
+imgUploadScale.addEventListener('dragstart', function (evt) {
+  if (evt.target.tagName.toLowerCase() === 'img') {
+    draggedItem = evt.target;
+    evt.dataTransfer.setData('text/plain', evt.target.alt);
+  }
+});
+
+// куда переносим
+imgUploadScale.addEventListener('dragover', function (evt) {
+  evt.preventDefault();
+  return false;
+});
+
+imgUploadScale.addEventListener('drop', function (evt) {
+  evt.target.style.backgroundColor = '';
+  evt.target.appendChild(draggedItem);
+  evt.preventDefault();
+});
