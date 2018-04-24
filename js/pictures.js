@@ -243,33 +243,35 @@ hashtagsContainer.addEventListener('input', function () {
 
 // module5-task1
 
-var SLIDER_WIDTH = 495;
-var SCALE_MAX = 100;
 // var imgUploadScale = document.querySelector('img-upload__scale');
 var scalePin = document.querySelector('.scale__pin');
+var scaleLevel = document.querySelector('.scale__level');
+var SLIDER_WIDTH = 450;
+
 
 scalePin.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
 
   var startCoords = {
-    x: evt.clientX,
-    y: evt.clientY
+    x: evt.clientX
   };
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
 
+
     var shift = {
-      x: startCoords.x - moveEvt.clientX,
-      y: startCoords.y - moveEvt.clientY
+      x: startCoords.x - moveEvt.clientX
     };
 
     startCoords = {
-      x: moveEvt.clientX,
-      y: moveEvt.clientY
+      x: moveEvt.clientX
     };
+    var leftOffsetPin = scalePin.offsetLeft - shift.x;
+    if (leftOffsetPin >= 0 && SLIDER_WIDTH >= leftOffsetPin) {
+      scalePin.style.left = leftOffsetPin + 'px';
+      scaleLevel.style.width = (leftOffsetPin / SLIDER_WIDTH) * 100 + '%';
+    }
 
-    scalePin.style.top = (scalePin.offsetTop - shift.y) + 'px';
-    scalePin.style.left = (scalePin.offsetLeft - shift.x) + 'px';
   };
 
   var onMouseUp = function (upEvt) {
@@ -283,25 +285,25 @@ scalePin.addEventListener('mousedown', function (evt) {
   document.addEventListener('mouseup', onMouseUp);
 });
 
-var imgUploadScale = document.querySelector('.img-upload__scale');
-var draggedItem = null;
+// var imgUploadScale = document.querySelector('.img-upload__scale');
+// var draggedItem = null;
 
 // откуда тянем
-imgUploadScale.addEventListener('dragstart', function (evt) {
-  if (evt.target.tagName.toLowerCase() === 'img') {
-    draggedItem = evt.target;
-    evt.dataTransfer.setData('text/plain', evt.target.alt);
-  }
-});
-
-// куда переносим
-imgUploadScale.addEventListener('dragover', function (evt) {
-  evt.preventDefault();
-  return false;
-});
-
-imgUploadScale.addEventListener('drop', function (evt) {
-  evt.target.style.backgroundColor = '';
-  evt.target.appendChild(draggedItem);
-  evt.preventDefault();
-});
+// imgUploadScale.addEventListener('dragstart', function (evt) {
+//   if (evt.target.tagName.toLowerCase() === 'img') {
+//     draggedItem = evt.target;
+//     evt.dataTransfer.setData('text/plain', evt.target.alt);
+//   }
+// });
+//
+// // куда переносим
+// imgUploadScale.addEventListener('dragover', function (evt) {
+//   evt.preventDefault();
+//   return false;
+// });
+//
+// imgUploadScale.addEventListener('drop', function (evt) {
+//   evt.target.style.backgroundColor = '';
+//   evt.target.appendChild(draggedItem);
+//   evt.preventDefault();
+// });
