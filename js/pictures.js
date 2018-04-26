@@ -248,6 +248,37 @@ var scalePin = document.querySelector('.scale__pin');
 var scaleLevel = document.querySelector('.scale__level');
 var SLIDER_WIDTH = 450;
 
+var imageUploadImg = uploadOverlay.querySelector('.img-upload__preview img');
+
+var setSaturation = function (position) {
+  var filterName = imageUploadImg.classList.value;
+  filterName = filterName.split('--');
+  filterName = filterName[1];
+
+  var result;
+
+  switch (filterName) {
+    case 'chrome':
+      result = 'grayscale(' + (position / 100) + ')';
+      break;
+    case 'sepia':
+      result = 'sepia(' + (position / 100) + ')';
+      break;
+    case 'marvin':
+      result = 'invert(' + position + '%)';
+      break;
+    case 'phobos':
+      result = 'blur(' + (position * 3 / 100) + 'px)';
+      break;
+    case 'heat':
+      result = 'brightness(' + ((position * 2 / 100) + 1) + ')';
+      break;
+  }
+
+  imageUploadImg.style.filter = result;
+  scaleValue.value = position;
+};
+
 
 scalePin.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
@@ -270,6 +301,7 @@ scalePin.addEventListener('mousedown', function (evt) {
     if (leftOffsetPin >= 0 && SLIDER_WIDTH >= leftOffsetPin) {
       scalePin.style.left = leftOffsetPin + 'px';
       scaleLevel.style.width = (leftOffsetPin / SLIDER_WIDTH) * 100 + '%';
+      setSaturation(leftOffsetPin);
     }
 
   };
@@ -284,26 +316,3 @@ scalePin.addEventListener('mousedown', function (evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
-
-// var imgUploadScale = document.querySelector('.img-upload__scale');
-// var draggedItem = null;
-
-// откуда тянем
-// imgUploadScale.addEventListener('dragstart', function (evt) {
-//   if (evt.target.tagName.toLowerCase() === 'img') {
-//     draggedItem = evt.target;
-//     evt.dataTransfer.setData('text/plain', evt.target.alt);
-//   }
-// });
-//
-// // куда переносим
-// imgUploadScale.addEventListener('dragover', function (evt) {
-//   evt.preventDefault();
-//   return false;
-// });
-//
-// imgUploadScale.addEventListener('drop', function (evt) {
-//   evt.target.style.backgroundColor = '';
-//   evt.target.appendChild(draggedItem);
-//   evt.preventDefault();
-// });
