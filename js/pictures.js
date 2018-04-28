@@ -250,35 +250,38 @@ var SLIDER_WIDTH = 450;
 
 var imageUploadImg = uploadOverlay.querySelector('.img-upload__preview img');
 
-var setSaturation = function (position) {
-  var filterName = imageUploadImg.classList.value;
-  filterName = filterName.split('--');
-  filterName = filterName[1];
-
+var setSaturation = function () {
   var result;
 
-  switch (filterName) {
+  switch (currentEffect) {
     case 'chrome':
-      result = 'grayscale(' + (position / 100) + ')';
+      result = 'grayscale(' + (positionPin / 100) + ')';
       break;
     case 'sepia':
-      result = 'sepia(' + (position / 100) + ')';
+      result = 'sepia(' + (positionPin / 100) + ')';
       break;
     case 'marvin':
-      result = 'invert(' + position + '%)';
+      result = 'invert(' + positionPin + '%)';
       break;
     case 'phobos':
-      result = 'blur(' + (position * 3 / 100) + 'px)';
+      result = 'blur(' + (positionPin * 3 / 100) + 'px)';
       break;
     case 'heat':
-      result = 'brightness(' + ((position * 2 / 100) + 1) + ')';
+      result = 'brightness(' + ((positionPin * 2 / 100) + 1) + ')';
       break;
   }
 
   imageUploadImg.style.filter = result;
-  scaleValue.value = position;
 };
 
+var positionPin = 0;
+var currentEffect = 'none';
+
+var effectsList = document.querySelector('.effects__list');
+effectsList.addEventListener('change', function (evt) {
+  currentEffect = evt.target.value;
+  setSaturation();
+});
 
 scalePin.addEventListener('mousedown', function (evt) {
   evt.preventDefault();
@@ -289,7 +292,6 @@ scalePin.addEventListener('mousedown', function (evt) {
   var onMouseMove = function (moveEvt) {
     moveEvt.preventDefault();
 
-
     var shift = {
       x: startCoords.x - moveEvt.clientX
     };
@@ -299,9 +301,10 @@ scalePin.addEventListener('mousedown', function (evt) {
     };
     var leftOffsetPin = scalePin.offsetLeft - shift.x;
     if (leftOffsetPin >= 0 && SLIDER_WIDTH >= leftOffsetPin) {
+      positionPin = (leftOffsetPin / SLIDER_WIDTH) * 100;
       scalePin.style.left = leftOffsetPin + 'px';
-      scaleLevel.style.width = (leftOffsetPin / SLIDER_WIDTH) * 100 + '%';
-      setSaturation(leftOffsetPin);
+      scaleLevel.style.width = positionPin + '%';
+      setSaturation();
     }
 
   };
@@ -315,4 +318,24 @@ scalePin.addEventListener('mousedown', function (evt) {
 
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
+});
+
+var scaleLine = document.querySelector('.scale__line');
+scaleLine.addEventListener('click', function (evt) {
+  // evt.leftOffsetPin = positionPin.evt.clientX;
+  // var leftOffsetPin = evt.clientX;
+  var leftOffsetPin = evt.clientX - positionPin;
+  // var startCoords = {
+  //   x: evt.clientX
+  // };
+  // var shift = {
+  //   x: startCoords.x - evt.clientX
+  // };
+  // var leftOffsetPin = scalePin.offsetLeft - shift.x + evt.clientX;
+  debugger;
+  positionPin = (leftOffsetPin / SLIDER_WIDTH) * 100;
+  scalePin.style.left = leftOffsetPin + 'px';
+  scaleLevel.style.width = positionPin + '%';
+  setSaturation();
+
 });
