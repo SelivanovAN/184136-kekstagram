@@ -236,14 +236,9 @@ hashtagsContainer.addEventListener('input', function () {
   }
 });
 
-// Если при отправке данных произошла ошибка запроса, нужно показать соответствующее сообщение
-// var messageError = document.querySelector('.img-upload__message--error');
-// messageError.classList.remove('hidden');
-
 
 // module5-task1
 
-// var imgUploadScale = document.querySelector('img-upload__scale');
 var scalePin = document.querySelector('.scale__pin');
 var scaleLevel = document.querySelector('.scale__level');
 var SLIDER_WIDTH = 450;
@@ -312,7 +307,6 @@ scalePin.addEventListener('mousedown', function (evt) {
 
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
-    // upEvt.stopPropagation();
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
@@ -321,14 +315,3 @@ scalePin.addEventListener('mousedown', function (evt) {
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
 });
-
-// var scaleLine = document.querySelector('.scale__line');
-//
-// scaleLine.addEventListener('mouseup', function (evt) {
-//   var leftOffsetPin = evt.offsetX;
-//   positionPin = (leftOffsetPin / SLIDER_WIDTH) * 100;
-//   scalePin.style.left = leftOffsetPin + 'px';
-//   scaleLevel.style.width = positionPin + '%';
-//   setSaturation();
-//
-// });
