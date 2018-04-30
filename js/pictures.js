@@ -299,6 +299,7 @@ scalePin.addEventListener('mousedown', function (evt) {
     startCoords = {
       x: moveEvt.clientX
     };
+
     var leftOffsetPin = scalePin.offsetLeft - shift.x;
     if (leftOffsetPin >= 0 && SLIDER_WIDTH >= leftOffsetPin) {
       positionPin = (leftOffsetPin / SLIDER_WIDTH) * 100;
@@ -311,6 +312,7 @@ scalePin.addEventListener('mousedown', function (evt) {
 
   var onMouseUp = function (upEvt) {
     upEvt.preventDefault();
+    // upEvt.stopPropagation();
 
     document.removeEventListener('mousemove', onMouseMove);
     document.removeEventListener('mouseup', onMouseUp);
@@ -320,22 +322,13 @@ scalePin.addEventListener('mousedown', function (evt) {
   document.addEventListener('mouseup', onMouseUp);
 });
 
-var scaleLine = document.querySelector('.scale__line');
-scaleLine.addEventListener('click', function (evt) {
-  // evt.leftOffsetPin = positionPin.evt.clientX;
-  // var leftOffsetPin = evt.clientX;
-  var leftOffsetPin = evt.clientX - positionPin;
-  // var startCoords = {
-  //   x: evt.clientX
-  // };
-  // var shift = {
-  //   x: startCoords.x - evt.clientX
-  // };
-  // var leftOffsetPin = scalePin.offsetLeft - shift.x + evt.clientX;
-  debugger;
-  positionPin = (leftOffsetPin / SLIDER_WIDTH) * 100;
-  scalePin.style.left = leftOffsetPin + 'px';
-  scaleLevel.style.width = positionPin + '%';
-  setSaturation();
-
-});
+// var scaleLine = document.querySelector('.scale__line');
+//
+// scaleLine.addEventListener('mouseup', function (evt) {
+//   var leftOffsetPin = evt.offsetX;
+//   positionPin = (leftOffsetPin / SLIDER_WIDTH) * 100;
+//   scalePin.style.left = leftOffsetPin + 'px';
+//   scaleLevel.style.width = positionPin + '%';
+//   setSaturation();
+//
+// });
