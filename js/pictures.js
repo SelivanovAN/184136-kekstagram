@@ -23,11 +23,6 @@ var PHOTO_DESCRIPTIONS = [
 var gallery = document.querySelector('.pictures');
 var pictureTemplate = document.querySelector('#picture').content;
 
-// --------- функция генерации случайных чисел---------
-var getRandomNumber = function (min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-};
-
 // --------- фукнция перемешивания массива ---------
 function shuffle(array) {
   var j;
@@ -47,9 +42,9 @@ var photos = [];
 for (var j = 0; j < COUNT_PHOTOS; j++) {
   photos.push({
     url: 'photos/' + (j + 1) + '.jpg',
-    likes: getRandomNumber(MIN_LIKES, MAX_LIKES),
-    comments: shuffle(PHOTO_COMMENTS).slice(0, getRandomNumber(0, PHOTO_COMMENTS.length - 1)),
-    description: PHOTO_DESCRIPTIONS[getRandomNumber(0, PHOTO_DESCRIPTIONS.length - 1)]
+    likes: window.util.getRandomNumber(MIN_LIKES, MAX_LIKES),
+    comments: shuffle(PHOTO_COMMENTS).slice(0, window.util.getRandomNumber(0, PHOTO_COMMENTS.length - 1)),
+    description: PHOTO_DESCRIPTIONS[window.util.getRandomNumber(0, PHOTO_DESCRIPTIONS.length - 1)]
   });
 }
 
@@ -85,7 +80,7 @@ var renderBigPicture = function (photo) {
   var fragmentBigPicture = document.createDocumentFragment();
   for (var l = 0; l < photo.comments.length; l++) {
     var comment = socialComment.cloneNode(true);
-    comment.querySelector('.social__picture').src = 'img/avatar-' + getRandomNumber(MIN_NUMBER_COMMENTS, MAX_NUMBER_COMMENTS) + '.svg';
+    comment.querySelector('.social__picture').src = 'img/avatar-' + window.util.getRandomNumber(MIN_NUMBER_COMMENTS, MAX_NUMBER_COMMENTS) + '.svg';
     comment.childNodes[comment.childNodes.length - 1].nodeValue = photo.comments[l];
     fragmentBigPicture.appendChild(comment);
   }

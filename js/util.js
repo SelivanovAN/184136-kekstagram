@@ -1,17 +1,9 @@
 'use strict';
 
 window.util = (function () {
-
-  var ESC_KEYCODE = 27;
   return {
-    getRandomIndex: function (min, max) {
+    getRandomNumber: function (min, max) { // --------- функция генерации случайных чисел---------
       return Math.floor(Math.random() * (max - min)) + min;
-    },
-
-    onPopupEscPress: function (evt) {
-      if (evt.keyCode === ESC_KEYCODE) {
-        window.util.closePopup();
-      }
     },
 
     openPopup: function () {
