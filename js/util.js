@@ -11,7 +11,7 @@ window.util = (function () {
       document.addEventListener('keydown', window.util.onPopupEscPress);
     },
 
-    closePopup: function () { // пересмотреть лекцию про модули
+    closePopup: function () {
       var coordinatesSetupTop = window.setup.style.top;
       var coordinatesSetupLeft = window.setup.style.left;
       window.setup.classList.add('hidden');

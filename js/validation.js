@@ -3,7 +3,7 @@
 // ----------- module4-task2---------- проверка хеш-тегов и комментов
 
 (function () {
-  var hashtagsContainer = document.querySelector('.text__hashtags'); // double
+  var hashtagsContainer = document.querySelector('.text__hashtags'); // double form
 
   function searchForSameValues(arr) {
     for (var i = 0; i < arr.length; i++) {

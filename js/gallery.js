@@ -1,6 +1,6 @@
 'use strict';
 
-// --------- отрисовываем изображения ---------
+// --------- создаем галерею ---------
 
 (function () {
   window.gallery = document.querySelector('.pictures');
