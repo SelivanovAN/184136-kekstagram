@@ -49,15 +49,15 @@
   // ----------- Закрываем окно bigPicture ----------
   var btnCloseBigPicture = bigPicture.querySelector('.big-picture__cancel');
 
-  var closeBigPicture = function () {
+  var onBigPictureCloseClick = function () {
     bigPicture.classList.add('hidden');
   };
 
-  btnCloseBigPicture.addEventListener('click', closeBigPicture);
+  btnCloseBigPicture.addEventListener('click', onBigPictureCloseClick);
 
   window.addEventListener('keydown', function (evt) {
     if (evt.keyCode === ESC_KEYCODE) {
-      closeBigPicture();
+      onBigPictureCloseClick();
     }
   });
 })();
