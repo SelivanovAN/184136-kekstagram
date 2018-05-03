@@ -1,5 +1,7 @@
 'use strict';
 
+// Комент для принятия задания
+
 window.util = (function () {
   return {
     getRandomNumber: function (min, max) { // --------- функция генерации случайных чисел---------
