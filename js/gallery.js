@@ -36,7 +36,7 @@
 
   var errorHandler = function (errorMessage) {
     var node = document.createElement('div');
-    node.style = 'z-index: 5; margin: 0 auto; background-color: red;';
+    node.style = 'z-index: 5; margin: 0 auto; background-color: red; border-radius: 15px;';
     node.style.position = 'absolute';
     node.style.display = 'flex';
     node.style.left = 0;

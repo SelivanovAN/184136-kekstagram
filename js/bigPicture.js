@@ -13,6 +13,7 @@
     bigPicture.querySelector('.big-picture__img img').src = photo.url;
     bigPicture.querySelector('.likes-count').textContent = photo.likes;
     bigPicture.querySelector('.comments-count').textContent = photo.comments.length;
+    bigPicture.querySelector('.social__caption').textContent = photo.comments[0];
     var socialComments = bigPicture.querySelector('.social__comments');
     var socialComment = socialComments.querySelector('.social__comment').cloneNode(true);
     socialComments.innerHTML = '';
