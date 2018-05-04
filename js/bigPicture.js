@@ -7,6 +7,7 @@
   var MAX_NUMBER_COMMENTS = 6;
   var ESC_KEYCODE = 27; // double form
 
+  var gallery = document.querySelector('.pictures');
   var bigPicture = document.querySelector('.big-picture');
 
   window.renderBigPicture = function (photo) {
@@ -34,12 +35,12 @@
   socialCommentLoad.classList.add('visually-hidden');
 
   // ----------- Показываем фотографии в полноэкранном формате ----------
-  window.gallery.addEventListener('click', function (evt) {
+  gallery.addEventListener('click', function (evt) {
     var target = evt.target;
     while (!target.classList.contains('pictures')) {
       if (target.classList.contains('picture__link')) {
         var idPhoto = parseInt(target.dataset.id, 10);
-        window.renderBigPicture(window.photos[idPhoto]);
+        window.renderBigPicture(window.items[idPhoto]);
         bigPicture.classList.remove('hidden');
         return;
       }

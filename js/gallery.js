@@ -3,7 +3,7 @@
 // --------- создаем галерею ---------
 
 (function () {
-  window.gallery = document.querySelector('.pictures');
+
   var pictureTemplate = document.querySelector('#picture').content;
 
   // --------- функция создания DOM-элемента на основе JS-объекта-шаблона ---------
@@ -16,22 +16,17 @@
     return photoElement;
   };
 
-  // var fragment = document.createDocumentFragment();
-  // // --------- функция заполнения фрагмента DOM-элементами на основе массива ---------
-  // for (var i = 0; i < window.photos.length; i++) {
-  //   fragment.appendChild(renderPhoto(window.photos[i], i));
-  // }
-  //
-  // window.gallery.appendChild(fragment);
+  // --------- функция заполнения фрагмента DOM-элементами на основе массива ---------
+
+  var COUNT_PHOTOS = 25;
+
   var successHandler = function (photos) {
     var fragment = document.createDocumentFragment();
-    window.photos = photos;
-    var countPhotos = 25;
-
-    for (var i = 0; i < countPhotos; i++) {
-      fragment.appendChild(renderPhoto(window.photos[i], i));
-    }
-    window.gallery.appendChild(fragment);
+    window.items = photos.splice(0, COUNT_PHOTOS); // если надо сохраняем в какую глобальную переменную
+    window.items.forEach(function (photo, index) {
+      fragment.appendChild(renderPhoto(photo, index));
+    });
+    document.querySelector('.pictures').appendChild(fragment);
   };
 
   var errorHandler = function (errorMessage) {
