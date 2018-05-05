@@ -42,4 +42,15 @@
       }
     }
   });
+
+  // send information
+
+  var form = document.querySelector('.img-upload__submit');
+
+  form.addEventListener('submit', function (evt) {
+    window.backend.save(new FormData(form), function () {
+      window.util.closePopup();
+    });
+    evt.preventDefault();
+  });
 })();

@@ -3,7 +3,7 @@
 // --------- создаем галерею ---------
 
 (function () {
-  window.gallery = document.querySelector('.pictures');
+
   var pictureTemplate = document.querySelector('#picture').content;
 
   // --------- функция создания DOM-элемента на основе JS-объекта-шаблона ---------
@@ -16,12 +16,36 @@
     return photoElement;
   };
 
-  var fragment = document.createDocumentFragment();
   // --------- функция заполнения фрагмента DOM-элементами на основе массива ---------
-  for (var i = 0; i < window.photos.length; i++) {
-    fragment.appendChild(renderPhoto(window.photos[i], i));
-  }
 
-  window.gallery.appendChild(fragment);
+  var COUNT_PHOTOS = 25;
 
+  var successHandler = function (photos) {
+    var fragment = document.createDocumentFragment();
+    window.items = photos.splice(0, COUNT_PHOTOS); // если надо сохраняем в какую глобальную переменную
+    window.items.forEach(function (photo, index) {
+      fragment.appendChild(renderPhoto(photo, index));
+    });
+    document.querySelector('.pictures').appendChild(fragment);
+  };
+
+  var errorHandler = function (errorMessage) {
+    var node = document.createElement('div');
+    node.style = 'z-index: 5; margin: 0 auto; background-color: red; border-radius: 15px;';
+    node.style.position = 'absolute';
+    node.style.display = 'flex';
+    node.style.left = 0;
+    node.style.right = 0;
+    node.style.top = '25%';
+    node.style.alignItems = 'center';
+    node.style.justifyContent = 'center';
+    node.style.width = '50%';
+    node.style.height = '100px';
+    node.style.fontSize = '24px';
+
+    node.textContent = errorMessage;
+    document.body.insertAdjacentElement('afterbegin', node);
+  };
+
+  window.backend.load(successHandler, errorHandler);
 })();
